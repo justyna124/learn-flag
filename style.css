@@ -12,21 +12,20 @@ input {
 }
 
 .flag-icon {
-    width: 6em;
-    height: 12em;
+    font-size: 6em;
+
 }
 
-.container {
+.fragment {
     text-align: center;
-    margin-left: 15%;
-    margin-top: 2%;
+    font-size: 2em;
 }
 
-.column {
+.flag-wrapper {
+    margin-top: 3%;
     float: left;
-    width: 20%;
+    margin-left: 3%;
 }
 
-pre {
-    clear: both;
-}
+
+

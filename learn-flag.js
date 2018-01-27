@@ -220,9 +220,31 @@ function findPlace(inputArray) {
 
 
 function encodeMapAndPresent(value) {
-    var encodedPhrase = encode(value);
-    result.innerHTML = JSON.stringify(findPlace(encodedPhrase), null, 2);
 
+    console.log('findPlace', findPlace(encode(value)));
+    var places = findPlace(encode(value));
+    output.innerHTML = '';
+    places.forEach(function (place) {
+        var divFragment = createElement('div', {class: 'fragment'}, '[' + place.fragment + ']');
+        var spa = createElement('span', {class: 'flag-icon flag-icon-' + place.abbrev});
+        var div = createElement('div', {class: 'flag-wrapper'}, spa, divFragment);
+        output.append(div);
+
+    });
 }
 
-// console.log(encode('wwazonie'));
+function createElement(tagName, attribiutes) {
+    var element = document.createElement(tagName);
+    Object.keys(attribiutes).forEach(function (attributeName) {
+        element.setAttribute(attributeName, attribiutes[attributeName])
+
+    });
+
+    for (var i = 2; i < arguments.length; i++) {
+        element.append(arguments[i])
+
+    }
+
+    return element;
+}
+
