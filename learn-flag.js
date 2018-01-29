@@ -218,19 +218,28 @@ function findPlace(inputArray) {
     })
 }
 
+function setFragmentAsBold(name, fragment) {
+
+    var boldFragment = createElement('strong', {}, name.substring(fragment[0]-1,fragment[1]));
+    return createElement('div', {class:'fragment-name'},  name.substring(0, fragment[0]-1), boldFragment, name.substring(fragment[1]));
+}
 
 function encodeMapAndPresent(value) {
 
-    console.log('findPlace', findPlace(encode(value)));
+    // console.log('findPlace', findPlace(encode(value)));
     var places = findPlace(encode(value));
     output.innerHTML = '';
     places.forEach(function (place) {
+        console.log(place);
         var divFragment = createElement('div', {class: 'fragment'}, '[' + place.fragment + ']');
+        var placeName = setFragmentAsBold(place.country, place.fragment);
         var spa = createElement('span', {class: 'flag-icon flag-icon-' + place.abbrev});
-        var div = createElement('div', {class: 'flag-wrapper'}, spa, divFragment);
+        var div = createElement('div', {class: 'flag-wrapper'}, spa, divFragment, placeName);
         output.append(div);
 
     });
+
+
 }
 
 function createElement(tagName, attribiutes) {
@@ -242,9 +251,14 @@ function createElement(tagName, attribiutes) {
 
     for (var i = 2; i < arguments.length; i++) {
         element.append(arguments[i])
-
     }
-
     return element;
 }
 
+function nameCountry(){
+    // var nameCountry=
+    var dateSpan = document.createElement('span')
+    dateSpan.innerHTML = dateString;
+    var li = document.createElement('li');
+    li.appendChild(dateSpan);
+}
