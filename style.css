@@ -23,13 +23,13 @@ input {
     margin-bottom: 2%;
 }
 
-.fragment-name{
+.fragment-name {
     font-size: 1.1em;
     letter-spacing: 4px;
 
-
 }
-.fragment-name >strong {
+
+.fragment-name > strong {
     font-size: 1.3em;
     outline: 1px solid black;
 }
@@ -43,5 +43,8 @@ input {
 
 }
 
-
+.new-sign {
+    font-size: 2em;
+    float: left;
+}
 

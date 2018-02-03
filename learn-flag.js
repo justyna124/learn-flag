@@ -76,11 +76,11 @@ var countries = [
         abbrev: 'cz'
     },
     {
-        name: 'słowacja',
+        name: 'slowacja',
         abbrev: 'sk'
     },
     {
-        name: 'węgry',
+        name: 'wegry',
         abbrev: 'hu'
     },
     {
@@ -147,13 +147,7 @@ var countries = [
         abbrev: 'ru'
     },
 
-
 ];
-// var dictionary = ['portugalia', 'hiszpania', 'francja', 'belgia', 'holandia', 'luksemburg', 'dania', 'niemcy',
-//     'islandia', 'irlandia', 'wielka brytania', 'norwegia', 'szwecja', 'finlandia', 'wlochy', 'szwajcaria',
-//     'austria', 'czechy', 'slowacja', 'wegry', 'rumunia', 'bulgaria', 'albania', 'grecja', 'slowenia', 'chorwacja',
-//     'bosnia i hercegowina', 'serbia', 'czarnogora', 'macedonia', 'polska', 'estonia', 'lotwa', 'litwa', 'ukraina',
-//     'bialorus', 'moldawia', 'rosja'];
 
 var dictionary = countries.map(function (country) {
     return country.name;
@@ -167,11 +161,9 @@ function getAllSubsets(word) {
         }
     }
     return Object.keys(result);
-
 }
 
 var allFragmentMap = {};
-
 
 dictionary.forEach(function (word) {
     var parts = getAllSubsets(word);
@@ -192,14 +184,17 @@ function encode(phrase) {
                 startIndex += subPhrase.length;
                 break;
             } else if (i === startIndex + 1) {
-                throw new Error('Dictionary does not contain phrase: ' + subPhrase);
+                subPhrases.push({subPhrase: subPhrase});
+                startIndex += subPhrase.length;
             }
         }
     }
     return subPhrases;
 }
-
 function getRandom(array) {
+    if (!array) {
+        return null;
+    }
     var index = Math.floor((Math.random() * array.length));
     return array[index];
 }
@@ -207,35 +202,50 @@ function getRandom(array) {
 function findPlace(inputArray) {
     return inputArray.map(function (item) {
         var country = getRandom(item.countries);
-        var startIndex = country.indexOf(item.subPhrase);
-        return {
-            country: country,
-            abbrev: countries.find(function (c) {
-                return c.name === country;
-            }).abbrev,
-            fragment: [startIndex + 1, startIndex + item.subPhrase.length]
+
+        if (!country) {
+            return item;
+        } else {
+            var startIndex = country.indexOf(item.subPhrase);
+            return {
+                country: country,
+                abbrev: countries.find(function (c) {
+                    return c.name === country;
+                }).abbrev,
+                fragment: [startIndex + 1, startIndex + item.subPhrase.length]
+            }
         }
+
     })
 }
 
 function setFragmentAsBold(name, fragment) {
 
-    var boldFragment = createElement('strong', {}, name.substring(fragment[0]-1,fragment[1]));
-    return createElement('div', {class:'fragment-name'},  name.substring(0, fragment[0]-1), boldFragment, name.substring(fragment[1]));
+    var boldFragment = createElement('strong', {}, name.substring(fragment[0] - 1, fragment[1]));
+    return createElement('div', {class: 'fragment-name'}, name.substring(0, fragment[0] - 1), boldFragment, name.substring(fragment[1]));
 }
 
 function encodeMapAndPresent(value) {
 
     // console.log('findPlace', findPlace(encode(value)));
     var places = findPlace(encode(value));
+    console.log(JSON.stringify(places, null, 2))
     output.innerHTML = '';
     places.forEach(function (place) {
         console.log(place);
-        var divFragment = createElement('div', {class: 'fragment'}, '[' + place.fragment + ']');
-        var placeName = setFragmentAsBold(place.country, place.fragment);
-        var spa = createElement('span', {class: 'flag-icon flag-icon-' + place.abbrev});
-        var div = createElement('div', {class: 'flag-wrapper'}, spa, divFragment, placeName);
-        output.append(div);
+        if (place.country) {
+            var divFragment = createElement('div', {class: 'fragment'}, '[' + place.fragment + ']');
+            var placeName = setFragmentAsBold(place.country, place.fragment);
+            var spa = createElement('span', {class: 'flag-icon flag-icon-' + place.abbrev});
+            var div = createElement('div', {class: 'flag-wrapper'}, spa, divFragment, placeName);
+            output.append(div);
+        }
+        else {
+            var divv = createElement('div', {class: 'new-sign'}, place.subPhrase);
+            output.append(divv);
+
+        }
+
 
     });
 
@@ -255,8 +265,8 @@ function createElement(tagName, attribiutes) {
     return element;
 }
 
-function nameCountry(){
-    // var nameCountry=
+function nameCountry() {
+
     var dateSpan = document.createElement('span')
     dateSpan.innerHTML = dateString;
     var li = document.createElement('li');
