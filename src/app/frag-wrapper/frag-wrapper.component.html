@@ -1,0 +1,21 @@
+<div class="flag-wrapper" *ngFor="let word of parseWords">
+  <div *ngIf="checkType(word); then rightSection else leftSection"></div>
+
+  <ng-template #rightSection>
+    <span class="flag-icon flag-icon-pl"></span>
+    <div class="fragment">
+      {{word.getFragment}}
+    </div>
+    <div class="fragment-name" [innerHTML]="getFragment(word)"></div>
+    <div class="flag-icon">
+      <img [src]="getFlag(word)"/>
+    </div>
+  </ng-template>
+
+  <ng-template #leftSection class="flag-wrapper">
+    <div class="new-sign">
+      {{word.getSubPhrase}}
+    </div>
+  </ng-template>
+</div>
+
