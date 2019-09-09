@@ -12,13 +12,15 @@ import {FragWrapperComponent} from './frag-wrapper/frag-wrapper.component';
 import {FormsModule} from '@angular/forms';
 import {MathTasksComponent} from './math-tasks/math-tasks.component';
 import {MatListModule} from "@angular/material/list";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
     FragWrapperComponent,
-    MathTasksComponent
+    MathTasksComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
