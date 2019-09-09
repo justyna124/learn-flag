@@ -1,27 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { GameComponent } from './game/game.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {GameComponent} from './game/game.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatChipsModule,
-  MatFormFieldModule, MatGridListModule,
-  MatIconModule, MatInputModule,
-  MatProgressSpinnerModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatToolbarModule
+  MatButtonModule, MatCardModule, MatChipsModule, MatGridListModule, MatInputModule,
 } from '@angular/material';
-import { FragWrapperComponent } from './frag-wrapper/frag-wrapper.component';
+import {FragWrapperComponent} from './frag-wrapper/frag-wrapper.component';
 import {FormsModule} from '@angular/forms';
+import {MathTasksComponent} from './math-tasks/math-tasks.component';
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
-    FragWrapperComponent
+    FragWrapperComponent,
+    MathTasksComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +29,8 @@ import {FormsModule} from '@angular/forms';
     MatGridListModule,
     MatInputModule,
     FormsModule,
+    MatButtonModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

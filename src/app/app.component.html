@@ -1,1 +1,12 @@
-<app-game></app-game>
+<mat-card id="card" style="text-align: center;">
+  <mat-card-title>
+    Wybierz zabawę =)
+  </mat-card-title>
+
+  <mat-card-content>
+    <button [routerLink]="'/flag-tasks'" mat-button>Gra we flagi</button>
+    <button [routerLink]="'/math-tasks'" mat-button>Zadania matematyczne</button>
+  </mat-card-content>
+</mat-card>
+
+<router-outlet></router-outlet>

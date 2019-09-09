@@ -1,0 +1,17 @@
+<mat-card>
+  <button mat-button (click)="generateTasks()">Wygeneruj nowe zadania</button>
+  <button mat-button (click)="addTasks()">Dodaj nowe zadania</button>
+  <mat-list>
+    <mat-list-item *ngFor="let item of array; let i = index">
+      {{item.firstNumber}} {{item.operator}} {{item.secondNumber}} =
+      &nbsp;
+      <mat-form-field class="example-full-width">
+        <input (keyup)="inputSetValue(item.id, $event)" matInput placeholder="number" value="">
+      </mat-form-field>
+
+      <div *ngIf="array[i].status === false">
+        Błąd
+      </div>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
