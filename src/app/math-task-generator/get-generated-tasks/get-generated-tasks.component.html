@@ -1,0 +1,77 @@
+<div *ngIf="tasksStatus !== 'emptyDB'; then showTaskGenerator; else showRestFetchError;"></div>
+
+<ng-template #showTaskGenerator>
+  <mat-horizontal-stepper>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Wybierz zadania</ng-template>
+
+        <app-chips-autocomplete [allTags]="['proste', 'trudne', 'logika', 'dziecko']" (tagsEmit)="getTags($event)"></app-chips-autocomplete>
+
+        <div *ngIf="tasksStatus === 'success'; then fullListTemplate; else emptyTasksTemplate;"></div>
+
+        <ng-template #fullListTemplate>
+          <mat-selection-list #tasksList (selectionChange)="onGroupsChange(tasksList.selectedOptions.selected)">
+            <mat-list-option *ngFor="let task of tasks; let i = index" class="mat-selection-list-{{i}}" [value]="task._source.description">
+              {{task._source.description}}
+            </mat-list-option>
+          </mat-selection-list>
+        </ng-template>
+        <ng-template #emptyTasksTemplate>
+          Nie znaleziono zadań dla tego tagu
+        </ng-template>
+
+        <div *ngIf="selected.length > 0">
+          <button class="task_selected_button_next" mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Wprowadź warunki zadania</ng-template>
+        <mat-form-field>
+          <mat-label>Liczby większe lub równe</mat-label>
+          <input class="more_than" [(ngModel)]="moreThan" [ngModelOptions]="{standalone: true}" matInput required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Liczby mniejsze lub równe</mat-label>
+          <input class="less_than" [(ngModel)]="lessThan" [ngModelOptions]="{standalone: true}" matInput required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button class="task_condition_button_next" *ngIf="parseConditionsNumber()" mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Koniec</ng-template>
+      <div *ngIf="parseConditionsNumber(); then generateStep; else fillInput;"></div>
+      <ng-template #generateStep>
+        Czy przejść dalej?
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button class="tasks_assertion" mat-button (click)="generateTasks()">Enter</button>
+        </div>
+      </ng-template>
+      <ng-template #fillInput>
+        Nie wypełniono wszystkich danych.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
+      </ng-template>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+  <div *ngFor="let item of description">
+    <p class="{{item.type}}">{{item.message}}</p>
+  </div>
+</ng-template>
+
+<ng-template #showRestFetchError>
+  <div class="boxSuccess">
+    <div class="failure">
+      Nie udało się pobrać zadań z bazy danych.
+    </div>
+  </div>
+</ng-template>
+

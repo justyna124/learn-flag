@@ -9,10 +9,20 @@ import {
   MatButtonModule, MatCardModule, MatChipsModule, MatGridListModule, MatInputModule,
 } from '@angular/material';
 import {FragWrapperComponent} from './frag-wrapper/frag-wrapper.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MathTasksComponent} from './math-tasks/math-tasks.component';
 import {MatListModule} from "@angular/material/list";
-import { HomeComponent } from './home/home.component';
+import {HomeComponent} from './home/home.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {GetGeneratedTasksComponent} from './math-task-generator/get-generated-tasks/get-generated-tasks.component';
+import {GenerateMathTasksComponent} from './math-task-generator/generate-math-tasks/generate-math-tasks.component';
+import {ElasticSearchClientService} from "./elastic-search-client.service";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatTableModule} from "@angular/material/table";
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatIconModule} from "@angular/material/icon";
+import { ChipsAutocompleteComponent } from './chips-autocomplete/chips-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +30,10 @@ import { HomeComponent } from './home/home.component';
     GameComponent,
     FragWrapperComponent,
     MathTasksComponent,
-    HomeComponent
+    HomeComponent,
+    GetGeneratedTasksComponent,
+    GenerateMathTasksComponent,
+    ChipsAutocompleteComponent
   ],
   imports: [
     BrowserModule,
@@ -33,8 +46,17 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     MatButtonModule,
     MatListModule,
+    MatCheckboxModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatIconModule
   ],
-  providers: [],
+  providers: [
+    ElasticSearchClientService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

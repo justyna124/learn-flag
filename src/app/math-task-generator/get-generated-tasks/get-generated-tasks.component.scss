@@ -1,0 +1,5 @@
+@import "../math-task-generator.component";
+
+.scrollable { overflow-y: scroll; height: 30%; }
+div .success { color: darkgreen }
+div .failure { color: red }

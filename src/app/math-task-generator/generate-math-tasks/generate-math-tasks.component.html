@@ -1,0 +1,29 @@
+<mat-card>
+  <div class="boxSuccess" *ngIf="storeMessage">
+    <div class="{{storeMessage.type}}">
+      {{storeMessage.message}}
+    </div>
+  </div>
+
+  <mat-form-field class="description-field">
+    <mat-label>Wpisz treść zadania</mat-label>
+    <textarea class="task_content" (keyup)="description($event.target.value)" [matTextareaAutosize] required matInput cdkTextareaAutosize
+              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="4"></textarea>
+  </mat-form-field>
+
+  <div *ngIf="taskVariable.length > 0">
+    <mat-form-field class="description-field">
+      <mat-label>Wpisz założenia dla {{taskVariable.length}} zmiennych</mat-label>
+      <input class="task_variable" (keyup)="assumptions($event.target.value)" required type="text" matInput>
+    </mat-form-field>
+  </div>
+
+  <app-chips-autocomplete [allTags]="['proste', 'trudne', 'logika', 'dziecko']" (tagsEmit)="getTags($event)"></app-chips-autocomplete>
+
+  <mat-form-field class="description-field">
+    <mat-label>Wpisz działanie</mat-label>
+    <input class="task_condition" [(ngModel)]="mathOperation" required type="text" matInput>
+  </mat-form-field>
+
+  <button class="task_button_store" mat-button (click)="store()">Zatwierdz zadanie</button>
+</mat-card>
